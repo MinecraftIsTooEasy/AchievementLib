@@ -24,4 +24,5 @@ Things to think about for further updates:
 Update plan:
 - Tabs must have hidden achievements based on their parents and children. For example - locked only unlocked, first locked achievements and their children must be visible, so far locked achievements are invisible
 - Registry for achievements that would be excluded from TabDefault. Right now all achievements are represented in TabDefault as they're represented in vanilla gui
-
+- ModMenu support
+- ManyLib support

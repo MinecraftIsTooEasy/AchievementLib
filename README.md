@@ -14,7 +14,7 @@ Basically, to add new tab you need to:
 3. In your mod registry add TabCustom "TabRegistry.register(TabCustom.class);"
 
 ### Further development
-I'm not a professional, and I am free for feedback and especially critique. If you have anything to say about this mod, contact me on discord (vb1dra) or via GitHub's issues page (https://github.com/MinecraftIsTooEasy/AchievementLib/issues)
+I'm not a professional, and I am free for feedback and especially critique. If you have anything to say about this mod, contact me on discord (@vb1dra) or via GitHub's issues page (https://github.com/MinecraftIsTooEasy/AchievementLib/issues)
 
 Things to think about:
 - Is it better to completely remove vanilla gui? At this moment it's still in game.

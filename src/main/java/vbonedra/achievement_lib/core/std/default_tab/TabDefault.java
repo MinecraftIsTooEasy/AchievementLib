@@ -20,6 +20,7 @@ public class TabDefault extends TabAbstract {
             Achievement achievement = (Achievement) entry;
             addAchievement(new AchievementExtended(achievement, achievement.displayColumn, achievement.displayRow));
         }
+
     }
 
 }

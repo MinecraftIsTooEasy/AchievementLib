@@ -26,3 +26,4 @@ Update plan:
 - Registry for achievements that would be excluded from TabDefault. Right now all achievements are represented in TabDefault as they're represented in vanilla gui
 - ModMenu support
 - ManyLib support
+- Better documentation

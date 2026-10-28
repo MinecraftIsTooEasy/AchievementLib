@@ -12,18 +12,18 @@
     "sources": "https://github.com/MinecraftIsTooEasy/fish-example-mod"
   },
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/achievement_lib/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.example.ExampleMod"
+      "vbonedra.achievement_lib.AchievementLibMod"
     ],
     "registry": [
-      "com.example.register.ExampleRegistryInit"
+      "vbonedra.achievement_lib.register.AchievementLibRegistryInit"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "achievement_lib.mixins.json"
   ],
   "depends": {
     "fishmodloader": ">=3.4.0",
@@ -34,5 +34,5 @@
   "suggests": {
     "another-mod": "*"
   },
-  "accessWidener": "modid.accesswidener"
+  "accessWidener": "achievement_lib.accesswidener"
 }

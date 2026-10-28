@@ -1,0 +1,10 @@
+key.achievement_lib.category.name=Achievement Lib Mod
+key.achievement_lib.open_gui.name=Open Advanced Achievements Tab
+
+gui.tab.default.title=Minecraft is Too Easy
+
+#config.menu.name.AchievementLib=AchievementLib
+#config.menu.comment.AchievementLib=AchievementLib stats mod configuration
+
+#config.name.keyBindingEnabled=Keybinding Enabled
+#config.comment.keyBindingEnabled=Enable keybindings for stats menu

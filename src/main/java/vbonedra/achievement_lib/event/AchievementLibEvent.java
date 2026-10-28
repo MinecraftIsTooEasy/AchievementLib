@@ -1,6 +1,6 @@
-package com.example.event;
+package vbonedra.achievement_lib.event;
 
-import com.example.ExampleMod;
+import vbonedra.achievement_lib.AchievementLibMod;
 import com.google.common.eventbus.Subscribe;
 import moddedmite.rustedironcore.api.event.Handlers;
 import moddedmite.rustedironcore.api.event.listener.IInitializationListener;
@@ -9,22 +9,22 @@ import net.xiaoyu233.fml.reload.event.MITEEvents;
 import net.xiaoyu233.fml.reload.event.SoundsRegisterEvent;
 
 // register fish & RIC events
-public class ExampleEvent extends Handlers {
+public class AchievementLibEvent extends Handlers {
     // Reference net.xiaoyu233.fml.reload.event for fish events
     // Notice: Please try to avoid using Fish Event, as Fish Event will be removed in FishModLoader v4.
-    @Subscribe
-    public void onSoundsRegister(SoundsRegisterEvent event) {
-    }
+//    @Subscribe
+//    public void onSoundsRegister(SoundsRegisterEvent event) {
+//    }
 
     // Reference moddedmite.rustedironcore.api.event.Handlers for RIC events
     public static void register() {
-        MITEEvents.MITE_EVENT_BUS.register(new ExampleEvent());
+//        MITEEvents.MITE_EVENT_BUS.register(new AchievementLibEvent());
 
-        Handlers.Initialization.register(new IInitializationListener() {
-            @Override
-            public void onClientStarted(Minecraft client) {
-                ExampleMod.LOGGER.info("Hello events!");
-            }
-        });
+//        Handlers.Initialization.register(new IInitializationListener() {
+//            @Override
+//            public void onClientStarted(Minecraft client) {
+//                AchievementLibMod.ACHIEVEMENT_LIB_MOD_LOGGER.info("Hello events!");
+//            }
+//        });
     }
 }

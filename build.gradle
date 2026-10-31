@@ -61,12 +61,12 @@ dependencies {
 def fmlResolvedFile = configurations.fml.singleFile
 
 loom {
-    accessWidenerPath = file("src/main/resources/modid.accesswidener")
+    accessWidenerPath = file("src/main/resources/achievement_lib.accesswidener")
     mergedMinecraftJar()
     setFML(fmlResolvedFile)
     dependencies.add("mappings", fmlMCPMappings())
     mods {
-        "modid" {
+        "achievement_lib" {
             sourceSet sourceSets.main
 //            sourceSet sourceSets.client
 //            sourceSet sourceSets.server

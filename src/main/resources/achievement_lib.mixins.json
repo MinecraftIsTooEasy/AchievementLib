@@ -1,10 +1,10 @@
 {
 	"required": true,
-	"": "vbonedra.achievement_lib.mixin",
+	"package": "vbonedra.achievement_lib.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"target": "DEFAULT",
 	"mixins": [
-      "AchievementLibMixin"
+      "MixinMinecraft"
 	],
 	"injectors": {
 		"defaultRequire": 1

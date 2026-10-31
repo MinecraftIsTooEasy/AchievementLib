@@ -16,7 +16,7 @@ public class TabDefault extends TabAbstract {
     public TabDefault() {
         super(NAME, "gui.tab.default.title", Block.grass.getIcon(2, 0), new RenderBackgroundDefault(), new RenderLayoutLegacy());
 
-        for (Object entry : AchievementList.achievementList) {
+        for (Object entry : AchievementList.achievementList) { // TODO: not all achievements must be added. there must be public static list of achievements to exclude
             Achievement achievement = (Achievement) entry;
             addAchievement(new AchievementExtended(achievement, achievement.displayColumn, achievement.displayRow));
         }

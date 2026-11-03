@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Tab: achievements, background, layout, scroll position, view mode, etc.
+ * Using this class instead of {@code TabStandard.class} would lead to achievements being duplicated to {@code TabDefault.class} unless they are specifically excluded.
  */
 public abstract class TabAbstract {
     private final String name;

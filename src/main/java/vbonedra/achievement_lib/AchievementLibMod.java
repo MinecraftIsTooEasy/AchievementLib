@@ -27,3 +27,6 @@ public class AchievementLibMod implements ModInitializer {
         AchievementLibKeyHandler.register();
     }
 }
+// TODO: fix render issues from vanilla:
+//  - enchantment glint
+//  - item subtypes

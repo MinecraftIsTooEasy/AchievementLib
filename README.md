@@ -22,6 +22,7 @@ Things to think about for further updates:
 - Is it better to completely remove vanilla gui? At this moment it's still in game.
 
 Update plan:
+- modern layout must have CONNECTION.direction in cinstruct, so its possible to use 1 modern layout to make 4 different layouts
 - Tabs must have hidden achievements based on their parents and children. For example - locked only unlocked, first locked achievements and their children must be visible, so far locked achievements are invisible
 - Registry for achievements that would be excluded from TabDefault. Right now all achievements are represented in TabDefault as they're represented in vanilla gui
 - ModMenu support

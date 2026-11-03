@@ -14,25 +14,21 @@ import static vbonedra.achievement_lib.util.GuiConstants.*;
 /** Modern placement: the achievements are arranged as a tree, just like in modern minecraft. */
 public class RenderLayoutModern extends RenderLayoutAbstract {
 
-    private int treeDirection = 0;
-
-    public void setTreeDirection(int treeDirection) {
-        this.treeDirection = treeDirection;
-    }
+    public int treeDirection = 0;
 
     public RenderLayoutModern() {
         RenderConnectionModernTree renderConnectionModernTree = new RenderConnectionModernTree();
-        renderConnectionModernTree.setColorLineUnlocked(COLOR_LINE_TREE_UNLOCKED);
-        renderConnectionModernTree.setColorLineLocked(COLOR_LINE_TREE_LOCKED);
-        renderConnectionModernTree.setColorLineUnlockableDim(COLOR_LINE_UNLOCKABLE_DIM);
-        renderConnectionModernTree.setColorLineUnlockableBright(COLOR_LINE_UNLOCKABLE_BRIGHT);
-        renderConnectionModernTree.setTreeOutlineWidth(1);
-        renderConnectionModernTree.setTreeDirection(this.treeDirection);
+        renderConnectionModernTree.colorLineUnlocked = COLOR_LINE_TREE_UNLOCKED;
+        renderConnectionModernTree.colorLineLocked = COLOR_LINE_TREE_LOCKED;
+        renderConnectionModernTree.colorLineUnlockableDim = COLOR_LINE_UNLOCKABLE_DIM;
+        renderConnectionModernTree.colorLineUnlockableBright = COLOR_LINE_UNLOCKABLE_BRIGHT;
+        renderConnectionModernTree.outlineWidth = 1;
+        renderConnectionModernTree.treeDirection = this.treeDirection;
         this.renderConnection = renderConnectionModernTree;
     }
 
     @Override
-    protected void setAchievementsPositions(List<AchievementExtended> achievements) {
+    public void setAchievementsPositions(List<AchievementExtended> achievements) {
         // achievements without a parent in this tab are roots, the others hang below their parent
         Map<AchievementExtended, List<AchievementExtended>> childrenOf = new HashMap<>();
         List<AchievementExtended> roots = new ArrayList<>();
@@ -57,7 +53,7 @@ public class RenderLayoutModern extends RenderLayoutAbstract {
     }
 
     // col is the tree level, row the place inside the level, the direction decides which one is x and which is y
-    private void toPixels(List<AchievementExtended> achievements) {
+    public void toPixels(List<AchievementExtended> achievements) {
         int minX = Integer.MAX_VALUE;
         int minY = Integer.MAX_VALUE;
 

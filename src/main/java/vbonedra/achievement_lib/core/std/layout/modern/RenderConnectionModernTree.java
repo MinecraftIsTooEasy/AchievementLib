@@ -9,11 +9,7 @@ import static vbonedra.achievement_lib.util.GuiConstants.*;
 
 public class RenderConnectionModernTree extends RenderConnectionLegacy {
 
-    private int treeDirection = 0;
-
-    public void setTreeDirection(int treeDirection) {
-        this.treeDirection = treeDirection;
-    }
+    public int treeDirection = 0;
 
     // parent -> bend, across to the child's line, bend -> child
     public void drawLine(GuiPainter painter, AchievementExtended child, AchievementExtended parent, int offsetX, int offsetY, int color, int outlineWidth) {

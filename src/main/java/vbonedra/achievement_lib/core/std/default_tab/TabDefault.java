@@ -11,7 +11,7 @@ import vbonedra.achievement_lib.core.std.layout.legacy.RenderLayoutLegacy;
 import java.util.ArrayList;
 import java.util.List;
 
-/** The vanilla achievement page: every achievement of AchievementList at its vanilla position, with vanilla lines and background. */
+/** The vanilla achievement page: every achievement of AchievementList at its vanilla position, with vanilla connections and background. */
 public class TabDefault extends TabAbstract {
 
     public static final String NAME = "default";

@@ -28,5 +28,4 @@ public class AchievementLibMod implements ModInitializer {
     }
 }
 // TODO: fix render issues from vanilla:
-//  - enchantment glint
-//  - item subtypes
+//  - item subtypes: there must be helper class that would register achievement with specific item subtype

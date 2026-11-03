@@ -11,27 +11,11 @@ import static vbonedra.achievement_lib.util.GuiConstants.*;
 
 public class RenderConnectionLegacy extends RenderConnectionAbstract {
 
-    private int colorLineUnlocked = COLOR_LINE_UNLOCKED;
-    private int colorLineUnlockableBright = COLOR_LINE_UNLOCKABLE_BRIGHT;
-    private int colorLineUnlockableDim = COLOR_LINE_UNLOCKABLE_DIM;
-    private int colorLineLocked = COLOR_LINE_LOCKED;
-    private int outlineWidth = 0;
-    
-    public void setColorLineUnlocked(int colorLineUnlocked) {
-        this.colorLineUnlocked = colorLineUnlocked;
-    }
-    public void setColorLineUnlockableBright(int colorLineUnlockableBright) {
-        this.colorLineUnlockableBright = colorLineUnlockableBright;
-    }
-    public void setColorLineUnlockableDim(int colorLineUnlockableDim) {
-        this.colorLineUnlockableDim = colorLineUnlockableDim;
-    }
-    public void setColorLineLocked(int colorLineLocked) {
-        this.colorLineLocked = colorLineLocked;
-    }
-    public void setTreeOutlineWidth(int outlineWidth) {
-        this.outlineWidth = outlineWidth;
-    }
+    public int colorLineUnlocked = COLOR_LINE_UNLOCKED;
+    public int colorLineUnlockableBright = COLOR_LINE_UNLOCKABLE_BRIGHT;
+    public int colorLineUnlockableDim = COLOR_LINE_UNLOCKABLE_DIM;
+    public int colorLineLocked = COLOR_LINE_LOCKED;
+    public int outlineWidth = 0;
 
     public void drawConnection(GuiPainter painter, AchievementStates states,
                                int pass,
@@ -89,7 +73,7 @@ public class RenderConnectionLegacy extends RenderConnectionAbstract {
                 Math.max(x1, x2) + 1 + outlineWidth, Math.max(y1, y2) + 1 + outlineWidth, color);
     }
 
-    protected int getColor(boolean unlocked, boolean unlockable) {
+    public int getColor(boolean unlocked, boolean unlockable) {
         if (unlocked) {
             return colorLineUnlocked;
         }

@@ -33,9 +33,9 @@ public abstract class RenderLayoutAbstract {
     }
 
     // sets x and y of every achievement
-    protected abstract void setAchievementsPositions(List<AchievementExtended> achievements);
+    public abstract void setAchievementsPositions(List<AchievementExtended> achievements);
 
-    private void linkParents(List<AchievementExtended> achievements) {
+    public void linkParents(List<AchievementExtended> achievements) {
         Map<Achievement, AchievementExtended> extendedOf = new HashMap<Achievement, AchievementExtended>();
         for (AchievementExtended extended : achievements) {
             extendedOf.put(extended.achievement, extended);
@@ -61,7 +61,7 @@ public abstract class RenderLayoutAbstract {
         return drawIcons(mc, painter, pane, states, achievements, scrollX, scrollY, originX, originY, mouseX, mouseY);
     }
 
-    private void drawConnections(GuiPainter painter, AchievementStates states, List<AchievementExtended> achievements, int offsetX, int offsetY) {
+    public void drawConnections(GuiPainter painter, AchievementStates states, List<AchievementExtended> achievements, int offsetX, int offsetY) {
         // pass 0: outlines
         // pass 1: locked and unlockable lines
         // pass 2: unlocked lines on top
@@ -75,7 +75,7 @@ public abstract class RenderLayoutAbstract {
         }
     }
 
-    private AchievementExtended drawIcons(
+    public AchievementExtended drawIcons(
             Minecraft mc, GuiPainter painter, RenderPane pane,
             AchievementStates states, List<AchievementExtended> achievements,
             int scrollX, int scrollY,
@@ -126,7 +126,7 @@ public abstract class RenderLayoutAbstract {
     }
 
     // frame and item of one achievement, brighter the closer it is to being unlocked
-    private void drawIcon(Minecraft mc, GuiPainter painter, AchievementStates states, RenderItem renderItem, Achievement achievement, int screenX, int screenY) {
+    public void drawIcon(Minecraft mc, GuiPainter painter, AchievementStates states, RenderItem renderItem, Achievement achievement, int screenX, int screenY) {
         boolean unlocked = states.hasAchievementUnlocked(achievement);
         boolean unlockable = states.canUnlockAchievement(achievement);
         boolean locked = !unlocked && !unlockable;

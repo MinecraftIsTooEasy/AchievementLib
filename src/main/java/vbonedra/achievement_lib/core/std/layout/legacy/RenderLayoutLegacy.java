@@ -15,7 +15,7 @@ public class RenderLayoutLegacy extends RenderLayoutAbstract {
     }
 
     @Override
-    protected void setAchievementsPositions(List<AchievementExtended> achievements) {
+    public void setAchievementsPositions(List<AchievementExtended> achievements) {
         for (AchievementExtended extended : achievements) {
             extended.x = (int) (extended.col * GRID_SPACING);
             extended.y = (int) (extended.row * GRID_SPACING);

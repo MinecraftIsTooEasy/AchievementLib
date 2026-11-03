@@ -1,6 +1,6 @@
 package vbonedra.achievement_lib.util;
 
-/** Sizes, colors and other fixed values of the achievement gui. */
+/** Basic constants used throughout whole mod. Those are not meant to be only constants, they are just stored lke that. */
 public final class GuiConstants {
 
     // view modes

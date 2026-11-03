@@ -20,15 +20,16 @@ public class RenderItemMixin {
     private boolean renderItemAndEffectIntoGUI_removeEnchantmentGlint(ItemStack itemStack) {
         Minecraft mc = Minecraft.getMinecraft();
 
-        if (mc != null
+        if (mc != null && mc.currentScreen != null
                 && (mc.currentScreen instanceof GuiAchievements
                 || mc.currentScreen instanceof GuiAchievementLib
-                || mc.currentScreen.getClass().getSimpleName().toLowerCase().contains("achievement")
-                || mc.currentScreen.getClass().getSimpleName().toLowerCase().contains("advancement")
+                || mc.currentScreen.getClass().getName().toLowerCase().contains("achievement")
+                || mc.currentScreen.getClass().getName().toLowerCase().contains("advancement")
         )
         ) {
             return false;
         }
+
 
         return itemStack.hasEffect();
     }

@@ -268,14 +268,6 @@ public class GuiAchievementLib extends GuiScreen {
             Gui.drawRect(left, top, right, bottom, color);
         }
 
-        @Override public void drawHorizontalLine(int x1, int x2, int y, int color) {
-            GuiAchievementLib.this.drawHorizontalLine(x1, x2, y, color);
-        }
-
-        @Override public void drawVerticalLine(int x, int y1, int y2, int color) {
-            GuiAchievementLib.this.drawVerticalLine(x, y1, y2, color);
-        }
-
         @Override public void drawGradientRect(int left, int top, int right, int bottom, int colorTop, int colorBottom) {
             GuiAchievementLib.this.drawGradientRect(left, top, right, bottom, colorTop, colorBottom);
         }

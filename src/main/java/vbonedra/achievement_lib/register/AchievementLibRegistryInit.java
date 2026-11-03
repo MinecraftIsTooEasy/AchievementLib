@@ -9,6 +9,5 @@ public class AchievementLibRegistryInit implements IGameRegistry {
 	@Override
 	public void onGameRegistry() {
         TabRegistry.register(TabDefault.class);
-
 	}
 }

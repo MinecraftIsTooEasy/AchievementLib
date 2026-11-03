@@ -6,24 +6,33 @@ import java.util.List;
 import java.util.Map;
 
 import vbonedra.achievement_lib.core.AchievementExtended;
-import vbonedra.achievement_lib.core.render.render_abstract.RenderConnectionAbstract;
 import vbonedra.achievement_lib.core.render.render_abstract.RenderLayoutAbstract;
 import vbonedra.achievement_lib.util.TreeDirection;
 
 import static vbonedra.achievement_lib.util.GuiConstants.*;
 
-/** Modern placement: the achievements are arranged as a tree, col and row are set by the layout. */
+/** Modern placement: the achievements are arranged as a tree, just like in modern minecraft. */
 public class RenderLayoutModern extends RenderLayoutAbstract {
 
-    private static final int DIRECTION = TreeDirection.RIGHT;                                           // direction the tree grows in
-    private static final RenderConnectionAbstract CONNECTION = new RenderConnectionModern(DIRECTION);   // change this to draw other lines
+    private int treeDirection = 0;
+
+    public void setTreeDirection(int treeDirection) {
+        this.treeDirection = treeDirection;
+    }
 
     public RenderLayoutModern() {
-        super(CONNECTION);
+        RenderConnectionModernTree renderConnectionModernTree = new RenderConnectionModernTree();
+        renderConnectionModernTree.setColorLineUnlocked(COLOR_LINE_TREE_UNLOCKED);
+        renderConnectionModernTree.setColorLineLocked(COLOR_LINE_TREE_LOCKED);
+        renderConnectionModernTree.setColorLineUnlockableDim(COLOR_LINE_UNLOCKABLE_DIM);
+        renderConnectionModernTree.setColorLineUnlockableBright(COLOR_LINE_UNLOCKABLE_BRIGHT);
+        renderConnectionModernTree.setTreeOutlineWidth(1);
+        renderConnectionModernTree.setTreeDirection(this.treeDirection);
+        this.renderConnection = renderConnectionModernTree;
     }
 
     @Override
-    protected void place(List<AchievementExtended> achievements) {
+    protected void setAchievementsPositions(List<AchievementExtended> achievements) {
         // achievements without a parent in this tab are roots, the others hang below their parent
         Map<AchievementExtended, List<AchievementExtended>> childrenOf = new HashMap<>();
         List<AchievementExtended> roots = new ArrayList<>();
@@ -53,12 +62,12 @@ public class RenderLayoutModern extends RenderLayoutAbstract {
         int minY = Integer.MAX_VALUE;
 
         for (AchievementExtended extended : achievements) {
-            if (TreeDirection.isHorizontal(DIRECTION)) {
-                extended.x = (int) (TreeDirection.getSign(DIRECTION) * extended.col * TREE_LEVEL_SPACING);
+            if (TreeDirection.isHorizontal(treeDirection)) {
+                extended.x = (int) (TreeDirection.getSign(treeDirection) * extended.col * TREE_LEVEL_SPACING);
                 extended.y = (int) Math.floor(extended.row * TREE_SIBLING_SPACING_Y);
             } else {
                 extended.x = (int) Math.floor(extended.row * TREE_SIBLING_SPACING_X);
-                extended.y = (int) (TreeDirection.getSign(DIRECTION) * extended.col * TREE_LEVEL_SPACING);
+                extended.y = (int) (TreeDirection.getSign(treeDirection) * extended.col * TREE_LEVEL_SPACING);
             }
             minX = Math.min(minX, extended.x);
             minY = Math.min(minY, extended.y);

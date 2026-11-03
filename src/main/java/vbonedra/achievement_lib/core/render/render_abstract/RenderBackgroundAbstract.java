@@ -60,7 +60,7 @@ public abstract class RenderBackgroundAbstract {
     protected abstract Icon pickIcon(Random random, int worldRow);
 
     // top row is brightest, depthRows and everything below it is darkest
-    protected float getBrightness(int worldRow, int depthRows) {
+    public float getBrightness(int worldRow, int depthRows) {
         float depth = GuiMath.clamp01(worldRow / (float) depthRows);
         return BACKGROUND_BRIGHTNESS_TOP - (BACKGROUND_BRIGHTNESS_TOP - BACKGROUND_BRIGHTNESS_BOTTOM) * depth;
     }

@@ -55,7 +55,6 @@ public final class GuiConstants {
     public static final int TREE_SIBLING_SPACING_X = 28;                // pixels between side by side achievements when the tree grows up or down
     public static final int TREE_SIBLING_SPACING_Y = 27;                // pixels between stacked achievements when the tree grows left or right
     public static final int TREE_BEND_OFFSET = TREE_LEVEL_SPACING / 2;  // connector bend distance from the parent's centre
-    public static final int TREE_OUTLINE_HALF_WIDTH = 1;                // connector outline sticks out this far on each side
     public static final float TREE_MIN_ROW_DISTANCE = 1.0F;             // minimum rows between neighbouring achievements
     public static final float TREE_BRANCH_GAP = 0.0F;                   // extra rows kept between neighbouring branches, deeper than their first column
     public static final float TREE_ROOT_GAP = 1.0F;                     // empty rows between separate trees
@@ -76,9 +75,9 @@ public final class GuiConstants {
     public static final int COLOR_LINE_UNLOCKED = 0xFF707070;
     public static final int COLOR_LINE_UNLOCKABLE_BRIGHT = 0xFF00C000;
     public static final int COLOR_LINE_UNLOCKABLE_DIM = 0xFF008000;
-    public static final int COLOR_TREE_LINE_OUTLINE = 0xFF000000;
-    public static final int COLOR_TREE_LINE_LOCKED = 0xFF505050;
-    public static final int COLOR_TREE_LINE_UNLOCKED = 0xFFFFFFFF;
+    public static final int COLOR_LINE_OUTLINE = 0xFF000000;
+    public static final int COLOR_LINE_TREE_LOCKED = 0xFF505050;
+    public static final int COLOR_LINE_TREE_UNLOCKED = 0xFFFFFFFF;
     public static final int COLOR_TOOLTIP_BACKGROUND = 0xC0000000;
     public static final int COLOR_TOOLTIP_HINT = 0xFF705050;
     public static final int COLOR_TOOLTIP_DESCRIPTION = 0xFFA0A0A0;

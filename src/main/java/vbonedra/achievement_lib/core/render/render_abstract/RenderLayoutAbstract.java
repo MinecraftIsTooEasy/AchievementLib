@@ -24,20 +24,16 @@ import static vbonedra.achievement_lib.util.GuiConstants.*;
 /** Template for a layout: places the achievements, then draws their connections and icons. */
 public abstract class RenderLayoutAbstract {
 
-    private final RenderConnectionAbstract connection;
-
-    protected RenderLayoutAbstract(RenderConnectionAbstract connection) {
-        this.connection = connection;
-    }
+    public RenderConnectionAbstract renderConnection;
 
     // placing
     public void layout(List<AchievementExtended> achievements) {
         linkParents(achievements);
-        place(achievements);
+        setAchievementsPositions(achievements);
     }
 
     // sets x and y of every achievement
-    protected abstract void place(List<AchievementExtended> achievements);
+    protected abstract void setAchievementsPositions(List<AchievementExtended> achievements);
 
     private void linkParents(List<AchievementExtended> achievements) {
         Map<Achievement, AchievementExtended> extendedOf = new HashMap<Achievement, AchievementExtended>();
@@ -60,13 +56,35 @@ public abstract class RenderLayoutAbstract {
         GL11.glDepthFunc(GL11.GL_LEQUAL);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-        connection.draw(painter, states, achievements, originX - scrollX, originY - scrollY);
+        drawConnections(painter, states, achievements, originX - scrollX, originY - scrollY);
 
         return drawIcons(mc, painter, pane, states, achievements, scrollX, scrollY, originX, originY, mouseX, mouseY);
     }
 
-    private AchievementExtended drawIcons(Minecraft mc, GuiPainter painter, RenderPane pane, AchievementStates states, List<AchievementExtended> achievements,
-                                          int scrollX, int scrollY, int originX, int originY, int mouseX, int mouseY) {
+    private void drawConnections(GuiPainter painter, AchievementStates states, List<AchievementExtended> achievements, int offsetX, int offsetY) {
+        // pass 0: outlines
+        // pass 1: locked and unlockable lines
+        // pass 2: unlocked lines on top
+        for (int pass = 0; pass < 3; pass++) {
+            for (AchievementExtended achievementExtended : achievements) {
+                renderConnection.drawConnection(painter, states, pass, achievementExtended, achievementExtended.parent, false, offsetX, offsetY);
+                renderConnection.drawConnection(painter, states, pass, achievementExtended, achievementExtended.secondParent, true, offsetX, offsetY);
+                // TODO: 2nd parent connection must be rendered only when child with such parent is in focus aka under mouse
+                //  this is toggleable by bool variable; other options like dimming connection are fine to be implemented
+            }
+        }
+    }
+
+    private AchievementExtended drawIcons(
+            Minecraft mc, GuiPainter painter, RenderPane pane,
+            AchievementStates states, List<AchievementExtended> achievements,
+            int scrollX, int scrollY,
+            int originX, int originY,
+            int mouseX, int mouseY
+    ) {
+        // TODO: achievements must have "depth" parameter, depth could be checked by this method to decide how achievement would render and if it should render
+        //  that would allow hiding far achievements irrelevant for player at the moment
+
         AchievementExtended hovered = null;
         RenderItem renderItem = new RenderItem();
 

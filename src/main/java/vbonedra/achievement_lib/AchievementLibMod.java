@@ -38,8 +38,8 @@ public class AchievementLibMod implements ModInitializer {
 */
 
 // TODO:
-//  - implement alternative solution for "enchantment glint render leak" issue (right now its just turning off enchantment glint)
 //  - item subtypes: there must be helper class that would register achievement with specific item subtype. such class is meant to be used by other mods
+//  - implement alternative solution for "enchantment glint render leak" issue (right now its just turning off enchantment glint)
 //  - achievement depth and ability to hide achievements too far from player's progression
 
 // notes/plans:

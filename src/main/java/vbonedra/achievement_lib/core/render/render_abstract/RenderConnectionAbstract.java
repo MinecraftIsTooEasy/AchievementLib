@@ -10,8 +10,8 @@ public abstract class RenderConnectionAbstract {
      * Draws line between child and parent
      */
     public abstract void drawConnection(
-            GuiPainter painter,
-            AchievementStates states,
+            GuiPainter guiPainter,
+            AchievementStates achievementStates,
             int pass,
             AchievementExtended child,
             AchievementExtended parent,

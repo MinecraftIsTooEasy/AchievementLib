@@ -21,7 +21,7 @@ import vbonedra.achievement_lib.util.GuiTextures;
 import static vbonedra.achievement_lib.util.GuiConstants.*;
 
 /**
- * The tab row above the pane: draws the tabs and scroll arrows, finds the tab or arrow under the mouse.
+ * The tab row above the renderPane: draws the tabs and scroll arrows, finds the tab or arrow under the mouse.
  */
 public class RenderTabBar {
 
@@ -29,7 +29,7 @@ public class RenderTabBar {
     private static final ResourceLocation ICON_ATLAS = TextureMap.locationBlocksTexture;
 
     private final Minecraft mc;
-    private final GuiPainter painter;
+    private final GuiPainter guiPainter;
 
     private final List<String> names = new ArrayList<>();
     private final List<TabAbstract> tabs = new ArrayList<>();
@@ -45,23 +45,23 @@ public class RenderTabBar {
     private int visibleCount;
     private boolean arrowsVisible;
 
-    public RenderTabBar(Minecraft mc, GuiPainter painter) {
+    public RenderTabBar(Minecraft mc, GuiPainter guiPainter) {
         this.mc = mc;
-        this.painter = painter;
+        this.guiPainter = guiPainter;
     }
 
     // layout
-    public void update(RenderPane pane, Map<String, TabAbstract> tabMap, String selectedName) {
+    public void update(RenderPane renderPane, Map<String, TabAbstract> tabMap, String selectedName) {
         names.clear();
         tabs.clear();
         names.addAll(tabMap.keySet());
         tabs.addAll(tabMap.values());
         selectedIndex = names.indexOf(selectedName);
-        paneTop = pane.getPaneTop();
+        paneTop = renderPane.getPaneTop();
 
         int count = names.size();
-        int stripLeft = pane.getPaneLeft() + TAB_STRIP_MARGIN;
-        int stripWidth = pane.getPaneWidth() - TAB_STRIP_MARGIN * 2;
+        int stripLeft = renderPane.getPaneLeft() + TAB_STRIP_MARGIN;
+        int stripWidth = renderPane.getPaneWidth() - TAB_STRIP_MARGIN * 2;
 
         // arrows are needed if the tabs don't fit
         arrowsVisible = count > getCapacity(stripWidth);
@@ -164,10 +164,10 @@ public class RenderTabBar {
 
         Icon icon = tabs.get(index).getIcon();
         if (icon != null) {
-            // centred in the part of the tab that is above the pane
+            // centred in the part of the tab that is above the renderPane
             int visibleHeight = paneTop - top;
             mc.getTextureManager().bindTexture(ICON_ATLAS);
-            painter.drawTexturedModelRectFromIcon(
+            guiPainter.drawTexturedModelRectFromIcon(
                     x + (TAB_WIDTH - TAB_ICON_SIZE) / 2,
                     top + (visibleHeight - TAB_ICON_SIZE) / 2,
                     icon, TAB_ICON_SIZE, TAB_ICON_SIZE);
@@ -197,7 +197,7 @@ public class RenderTabBar {
         int x = mouseX + 12;
         int y = mouseY - 4;
 
-        painter.drawGradientRect(x - 3, y - 3, x + width + 3, y + 8 + 3, COLOR_TOOLTIP_BACKGROUND, COLOR_TOOLTIP_BACKGROUND);
+        guiPainter.drawGradientRect(x - 3, y - 3, x + width + 3, y + 8 + 3, COLOR_TOOLTIP_BACKGROUND, COLOR_TOOLTIP_BACKGROUND);
         font.drawStringWithShadow(text, x, y, COLOR_TITLE_UNLOCKED);
     }
 

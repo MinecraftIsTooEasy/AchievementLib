@@ -16,14 +16,14 @@ import static vbonedra.achievement_lib.util.GuiConstants.*;
 /**
  * Draws the tooltip of the achievement under the mouse.
  */
-public record RenderTooltip(Minecraft mc, GuiPainter painter, AchievementStates states) {
+public record RenderTooltip(Minecraft mc, GuiPainter guiPainter, AchievementStates achievementStates) {
 
     /**
      * Draws tooltip based on {@code achievement} - see {@code drawLockedBody(...)} and {@code drawAvailableBody(...)}
      */
     public void draw(Achievement achievement, int mouseX, int mouseY) {
-        boolean unlocked = states.hasAchievementUnlocked(achievement);
-        boolean unlockable = states.canUnlockAchievement(achievement);
+        boolean unlocked = achievementStates.hasAchievementUnlocked(achievement);
+        boolean unlockable = achievementStates.canUnlockAchievement(achievement);
         boolean locked = !unlocked && !unlockable;
 
         String name = I18n.getString(achievement.getName());
@@ -57,14 +57,14 @@ public record RenderTooltip(Minecraft mc, GuiPainter painter, AchievementStates 
         int textWidth = Math.max(font.getStringWidth(name), 120);
 
         Achievement prerequisite = achievement;
-        while (!states.haveAllParentAchievementsBeenUnlocked(prerequisite, true)) {
+        while (!achievementStates.haveAllParentAchievementsBeenUnlocked(prerequisite, true)) {
             prerequisite = prerequisite.parentAchievement;
         }
 
         String hint = I18n.getStringParams("gui.achievement.see", I18n.getString(prerequisite.getName()));
         int hintHeight = font.splitStringWidth(hint, textWidth);
 
-        painter.drawGradientRect(x - 3, y - 3, x + textWidth + 3, y + hintHeight + 12 + 3,
+        guiPainter.drawGradientRect(x - 3, y - 3, x + textWidth + 3, y + hintHeight + 12 + 3,
                 COLOR_TOOLTIP_BACKGROUND, COLOR_TOOLTIP_BACKGROUND);
         font.drawSplitString(hint, x, y + 12, textWidth, COLOR_TOOLTIP_HINT);
     }
@@ -92,7 +92,7 @@ public record RenderTooltip(Minecraft mc, GuiPainter painter, AchievementStates 
             bodyHeight += 12;
         }
 
-        painter.drawGradientRect(x - 3, y - 3, x + textWidth + 3, y + bodyHeight + 3 + 12,
+        guiPainter.drawGradientRect(x - 3, y - 3, x + textWidth + 3, y + bodyHeight + 3 + 12,
                 COLOR_TOOLTIP_BACKGROUND, COLOR_TOOLTIP_BACKGROUND);
         font.drawSplitString(description, x, y + 12, textWidth, COLOR_TOOLTIP_DESCRIPTION);
 

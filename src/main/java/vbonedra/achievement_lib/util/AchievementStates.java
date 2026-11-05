@@ -4,6 +4,7 @@ import net.minecraft.Achievement;
 import net.minecraft.Minecraft;
 import net.minecraft.PlayerStatsHelper;
 import net.minecraft.StatFileWriter;
+import vbonedra.achievement_lib.core.AchievementExtended;
 
 import static net.minecraft.GuiAchievements.view_mode;
 
@@ -31,10 +32,10 @@ public record AchievementStates(Minecraft mc, StatFileWriter statFileWriter) {
 
     /**
      * If {@code achievement} has at least 1 parent connected to root.
-     * {@code includeSecondParents} - if checks for second parent too.
+     * {@code includeSecondParent} - if checks for second parent too.
      */
-    public boolean haveAllParentAchievementsBeenUnlocked(Achievement achievement, boolean includeSecondParents) {
-        if (includeSecondParents && isSecondParentPathUnlocked(achievement)) {
+    public boolean haveAllParentAchievementsBeenUnlocked(Achievement achievement, boolean includeSecondParent) {
+        if (includeSecondParent && isSecondParentPathUnlocked(achievement)) {
             return true;
         }
 
@@ -44,7 +45,7 @@ public record AchievementStates(Minecraft mc, StatFileWriter statFileWriter) {
             if (!hasAchievementUnlocked(achievement)) {
                 return false;
             }
-            if (includeSecondParents && isSecondParentPathUnlocked(achievement)) {
+            if (includeSecondParent && isSecondParentPathUnlocked(achievement)) {
                 return true;
             }
         }

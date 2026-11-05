@@ -20,9 +20,9 @@ public abstract class RenderBackgroundAbstract {
     private final Random random = new Random();
 
     // maxDepth is how far down (map pixels) the deepest achievement is, tiles get darker until there
-    public void draw(Minecraft mc, GuiPainter painter, RenderPane pane, int scrollX, int scrollY, int originX, int originY, int maxDepth) {
-        int drawLeft = pane.getBackgroundLeft();
-        int drawTop = pane.getBackgroundTop();
+    public void draw(Minecraft mc, GuiPainter guiPainter, RenderPane renderPane, int scrollX, int scrollY, int originX, int originY, int maxDepth) {
+        int drawLeft = renderPane.getBackgroundLeft();
+        int drawTop = renderPane.getBackgroundTop();
 
         // world position of the background's top left corner
         int worldLeft = scrollX - (originX - drawLeft) + TILE_WORLD_OFFSET;
@@ -35,20 +35,20 @@ public abstract class RenderBackgroundAbstract {
 
         int depthRows = Math.max(1, (maxDepth + TILE_WORLD_OFFSET) >> 4);
 
-        for (int row = 0; row * TILE_SIZE - pixelOffsetY < pane.getBackgroundHeight(); row++) {
+        for (int row = 0; row * TILE_SIZE - pixelOffsetY < renderPane.getBackgroundHeight(); row++) {
             int worldRow = firstTileRow + row;
 
             float brightness = getBrightness(worldRow, depthRows);
             GL11.glColor4f(brightness, brightness, brightness, 1.0F);
 
-            for (int column = 0; column * TILE_SIZE - pixelOffsetX < pane.getBackgroundWidth(); column++) {
+            for (int column = 0; column * TILE_SIZE - pixelOffsetX < renderPane.getBackgroundWidth(); column++) {
                 random.setSeed(1234 + firstTileColumn + column);
                 random.nextInt();
 
                 Icon icon = pickIcon(random, worldRow);
 
                 mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-                painter.drawTexturedModelRectFromIcon(
+                guiPainter.drawTexturedModelRectFromIcon(
                         drawLeft + column * TILE_SIZE - pixelOffsetX,
                         drawTop + row * TILE_SIZE - pixelOffsetY,
                         icon, TILE_SIZE, TILE_SIZE);

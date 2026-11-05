@@ -17,18 +17,19 @@ import vbonedra.achievement_lib.util.GuiDraw;
 import vbonedra.achievement_lib.util.GuiPainter;
 
 import static net.minecraft.GuiAchievements.view_mode;
+import static vbonedra.achievement_lib.AchievementLibKeyHandler.achievementGuiKeyBind;
 import static vbonedra.achievement_lib.util.GuiConstants.*;
 
 /**
- * The achievement screen: pane, border, tab bar, buttons. The open tab draws the map.
+ * The achievement screen: renderPane, border, tab bar, buttons. The open tab draws the map.
  */
 public class GuiAchievementLib extends GuiScreen {
 
     private GuiButton button_cycle_view_mode;
 
-    private final GuiPainter painter = new Painter();
-    private final RenderPane pane = new RenderPane();
-    private final AchievementStates states;
+    private final GuiPainter guiPainter = new Painter();
+    private final RenderPane renderPane = new RenderPane();
+    private final AchievementStates achievementStates;
     private final RenderBorder border;
     private final RenderTooltip tooltip;
     private final RenderTabBar tabBar;
@@ -36,10 +37,10 @@ public class GuiAchievementLib extends GuiScreen {
     public GuiAchievementLib(StatFileWriter statFileWriter) {
         Minecraft minecraft = Minecraft.getMinecraft();
 
-        states = new AchievementStates(minecraft, statFileWriter);
+        achievementStates = new AchievementStates(minecraft, statFileWriter);
         border = new RenderBorder(minecraft);
-        tooltip = new RenderTooltip(minecraft, painter, states);
-        tabBar = new RenderTabBar(minecraft, painter);
+        tooltip = new RenderTooltip(minecraft, guiPainter, achievementStates);
+        tabBar = new RenderTabBar(minecraft, guiPainter);
 
     }
 
@@ -68,17 +69,17 @@ public class GuiAchievementLib extends GuiScreen {
         double iconY = root == null ? 0 : root.y;
 
         tab.getScroll().centerOn(
-                iconX + ICON_CENTER_OFFSET - (double) pane.getMapViewWidth() / 2,
-                iconY + ICON_CENTER_OFFSET - (double) pane.getMapViewHeight() / 2);
+                iconX + ICON_CENTER_OFFSET - (double) renderPane.getMapViewWidth() / 2,
+                iconY + ICON_CENTER_OFFSET - (double) renderPane.getMapViewHeight() / 2);
     }
 
     // scroll limits: icons can reach the middle of the map, going up stops at the first background row (the sand)
     private void updateScrollLimits(TabAbstract tab) {
         tab.getScroll().setLimits(
-                tab.getMinX() + ICON_CENTER_OFFSET - pane.getMapViewWidth() / 2,
-                tab.getMaxX() + ICON_CENTER_OFFSET - pane.getMapViewWidth() / 2,
-                pane.getMapTop() - pane.getBackgroundTop() - TILE_WORLD_OFFSET,
-                tab.getMaxY() + ICON_CENTER_OFFSET - pane.getMapViewHeight() / 2);
+                tab.getMinX() + ICON_CENTER_OFFSET - renderPane.getMapViewWidth() / 2,
+                tab.getMaxX() + ICON_CENTER_OFFSET - renderPane.getMapViewWidth() / 2,
+                renderPane.getMapTop() - renderPane.getBackgroundTop() - TILE_WORLD_OFFSET,
+                tab.getMaxY() + ICON_CENTER_OFFSET - renderPane.getMapViewHeight() / 2);
     }
 
     // setup and input
@@ -87,11 +88,11 @@ public class GuiAchievementLib extends GuiScreen {
 
         TabAbstract tab = TabRegistry.getCurrent();
 
-        pane.setTabAreaHeight(showTabBar() ? TAB_AREA_HEIGHT : 0);
-        pane.update(width, height);
+        renderPane.setTabAreaHeight(showTabBar() ? TAB_AREA_HEIGHT : 0);
+        renderPane.update(width, height);
         prepareTab(tab);
 
-        int buttonY = pane.getPaneTop() + pane.getPaneHeight() - BORDER_BOTTOM + (BORDER_BOTTOM - BUTTON_HEIGHT) / 2;
+        int buttonY = renderPane.getPaneTop() + renderPane.getPaneHeight() - BORDER_BOTTOM + (BORDER_BOTTOM - BUTTON_HEIGHT) / 2;
 
         buttonList.clear();
         int buttonX = width - BUTTON_WIDTH - BUTTON_GAP_BORDER;
@@ -155,7 +156,7 @@ public class GuiAchievementLib extends GuiScreen {
     }
 
     @Override protected void keyTyped(char typedChar, int keyCode) {
-        if (keyCode == mc.gameSettings.keyBindInventory.keyCode) {
+        if (keyCode == mc.gameSettings.keyBindInventory.keyCode || keyCode == achievementGuiKeyBind.getKeyCode()) {
             closeScreen();
         } else {
             super.keyTyped(typedChar, keyCode);
@@ -177,8 +178,8 @@ public class GuiAchievementLib extends GuiScreen {
     }
 
     private void handleMapDragging(TabAbstract tab, int mouseX, int mouseY) {
-        boolean insideMap = mouseX >= pane.getMapLeft() && mouseX < pane.getMapLeft() + pane.getMapViewWidth()
-                && mouseY >= pane.getMapTop() && mouseY < pane.getMapTop() + pane.getMapViewHeight();
+        boolean insideMap = mouseX >= renderPane.getMapLeft() && mouseX < renderPane.getMapLeft() + renderPane.getMapViewWidth()
+                && mouseY >= renderPane.getMapTop() && mouseY < renderPane.getMapTop() + renderPane.getMapViewHeight();
 
         tab.getScroll().handleDragging(Mouse.isButtonDown(0), insideMap, mouseX, mouseY);
     }
@@ -192,7 +193,7 @@ public class GuiAchievementLib extends GuiScreen {
         handleMapDragging(tab, mouseX, mouseY);
 
         if (showTabBar()) {
-            tabBar.update(pane, TabRegistry.TABS, TabRegistry.currentName);
+            tabBar.update(renderPane, TabRegistry.TABS, TabRegistry.currentName);
         }
 
         drawDefaultBackground();
@@ -206,8 +207,8 @@ public class GuiAchievementLib extends GuiScreen {
     }
 
     protected void drawTitle(TabAbstract tab) {
-        int titleX = pane.getPaneLeft() + BORDER_LEFT + TITLE_OFFSET_X;
-        int titleY = pane.getPaneTop() + (BORDER_TOP - fontRenderer.FONT_HEIGHT) / 2;
+        int titleX = renderPane.getPaneLeft() + BORDER_LEFT + TITLE_OFFSET_X;
+        int titleY = renderPane.getPaneTop() + (BORDER_TOP - fontRenderer.FONT_HEIGHT) / 2;
         fontRenderer.drawString(I18n.getString(tab.getTitle()), titleX, titleY, COLOR_PANE_TITLE);
     }
 
@@ -215,8 +216,8 @@ public class GuiAchievementLib extends GuiScreen {
         int scrollX = tab.getScroll().getScrollX(partialTicks);
         int scrollY = tab.getScroll().getScrollY(partialTicks);
 
-        int originX = pane.getMapLeft();
-        int originY = pane.getMapTop();
+        int originX = renderPane.getMapLeft();
+        int originY = renderPane.getMapTop();
 
         zLevel = 0.0F;
         GL11.glDepthFunc(GL11.GL_GEQUAL);
@@ -228,15 +229,15 @@ public class GuiAchievementLib extends GuiScreen {
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 
         // background, lines and icons all reach halfway under the border
-        GuiDraw.enableScissor(mc, width, height, pane.getBackgroundLeft(), pane.getBackgroundTop(), pane.getBackgroundWidth(), pane.getBackgroundHeight());
-        AchievementExtended hovered = tab.draw(mc, painter, pane, states, scrollX, scrollY, originX, originY, mouseX, mouseY);
+        GuiDraw.enableScissor(mc, width, height, renderPane.getBackgroundLeft(), renderPane.getBackgroundTop(), renderPane.getBackgroundWidth(), renderPane.getBackgroundHeight());
+        AchievementExtended hovered = tab.draw(mc, guiPainter, renderPane, achievementStates, scrollX, scrollY, originX, originY, mouseX, mouseY);
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        border.draw(pane.getPaneLeft(), pane.getPaneTop(), pane.getPaneWidth(), pane.getPaneHeight(), zLevel);
+        border.draw(renderPane.getPaneLeft(), renderPane.getPaneTop(), renderPane.getPaneWidth(), renderPane.getPaneHeight(), zLevel);
         if (showTabBar()) {
             tabBar.draw(zLevel);
         }
@@ -281,8 +282,7 @@ public class GuiAchievementLib extends GuiScreen {
         }
     }
 
-
     public AchievementStates getStates() {
-        return states;
+        return achievementStates;
     }
 }

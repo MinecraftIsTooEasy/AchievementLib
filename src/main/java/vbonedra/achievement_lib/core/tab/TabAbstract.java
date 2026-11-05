@@ -50,12 +50,12 @@ public abstract class TabAbstract {
     }
 
     // returns the achievement under the mouse or null
-    public AchievementExtended draw(Minecraft mc, GuiPainter painter, RenderPane pane, AchievementStates states,
+    public AchievementExtended draw(Minecraft mc, GuiPainter guiPainter, RenderPane renderPane, AchievementStates achievementStates,
                                     int scrollX, int scrollY, int originX, int originY, int mouseX, int mouseY) {
         updateLayout();
 
-        this.renderBackground.draw(mc, painter, pane, scrollX, scrollY, originX, originY, getMaxAchievementDepth());
-        return this.renderLayout.draw(mc, painter, pane, states, this.achievements, scrollX, scrollY, originX, originY, mouseX, mouseY);
+        this.renderBackground.draw(mc, guiPainter, renderPane, scrollX, scrollY, originX, originY, getMaxAchievementDepth());
+        return this.renderLayout.draw(mc, guiPainter, renderPane, achievementStates, this.achievements, scrollX, scrollY, originX, originY, mouseX, mouseY);
     }
 
     public void addAchievement(AchievementExtended achievementExtended) {

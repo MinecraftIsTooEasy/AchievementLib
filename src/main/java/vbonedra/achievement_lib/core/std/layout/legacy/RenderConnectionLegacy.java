@@ -17,7 +17,7 @@ public class RenderConnectionLegacy extends RenderConnectionAbstract {
     public int colorLineLocked = COLOR_LINE_LOCKED;
     public int outlineWidth = 0;
 
-    public void drawConnection(GuiPainter painter, AchievementStates states,
+    public void drawConnection(GuiPainter guiPainter, AchievementStates achievementStates,
                                int pass,
                                AchievementExtended child, AchievementExtended parent,
                                boolean secondary,
@@ -30,14 +30,14 @@ public class RenderConnectionLegacy extends RenderConnectionAbstract {
         Achievement childAchievement = child.achievement;
         Achievement parentAchievement = parent.achievement;
 
-        boolean unlocked = states.hasAchievementUnlocked(childAchievement);
-        boolean unlockable = states.canUnlockAchievement(childAchievement);
+        boolean unlocked = achievementStates.hasAchievementUnlocked(childAchievement);
+        boolean unlockable = achievementStates.canUnlockAchievement(childAchievement);
 
         boolean parentsUnlocked = secondary
-                ? states.hasAchievementUnlocked(parentAchievement) && states.haveAllParentAchievementsBeenUnlocked(parentAchievement, true)
-                : states.haveAllParentAchievementsBeenUnlocked(childAchievement, false);
+                ? achievementStates.hasAchievementUnlocked(parentAchievement) && achievementStates.haveAllParentAchievementsBeenUnlocked(parentAchievement, true)
+                : achievementStates.haveAllParentAchievementsBeenUnlocked(childAchievement, false);
         if (!parentsUnlocked) {
-            if (!states.hasAchievementUnlocked(parentAchievement)) {
+            if (!achievementStates.hasAchievementUnlocked(parentAchievement)) {
                 unlocked = false;
             }
             unlockable = false;
@@ -48,14 +48,14 @@ public class RenderConnectionLegacy extends RenderConnectionAbstract {
         }
 
         if (pass == 0) {
-            drawLine(painter, child, parent, offsetX, offsetY, COLOR_LINE_OUTLINE, outlineWidth);
+            drawLine(guiPainter, child, parent, offsetX, offsetY, COLOR_LINE_OUTLINE, outlineWidth);
         } else {
-            drawLine(painter, child, parent, offsetX, offsetY, getColor(unlocked, unlockable), 0);
+            drawLine(guiPainter, child, parent, offsetX, offsetY, getColor(unlocked, unlockable), 0);
         }
     }
 
     // flipped achievements start at the parent instead of the child
-    public void drawLine(GuiPainter painter, AchievementExtended child, AchievementExtended parent, int offsetX, int offsetY, int color, int outlineWidth) {
+    public void drawLine(GuiPainter guiPainter, AchievementExtended child, AchievementExtended parent, int offsetX, int offsetY, int color, int outlineWidth) {
         AchievementExtended start = child.achievement.isFlipped() ? parent : child;
         AchievementExtended end = child.achievement.isFlipped() ? child : parent;
 
@@ -64,12 +64,12 @@ public class RenderConnectionLegacy extends RenderConnectionAbstract {
         int endX = end.x + ICON_CENTER_OFFSET + offsetX;
         int endY = end.y + ICON_CENTER_OFFSET + offsetY;
 
-        drawSimpleLine(painter, startX, startY, endX, startY, color, outlineWidth);
-        drawSimpleLine(painter, endX, startY, endX, endY, color, outlineWidth);
+        drawSimpleLine(guiPainter, startX, startY, endX, startY, color, outlineWidth);
+        drawSimpleLine(guiPainter, endX, startY, endX, endY, color, outlineWidth);
     }
 
-    public void drawSimpleLine(GuiPainter painter, int x1, int y1, int x2, int y2, int color, int outlineWidth) {
-        painter.drawRect(Math.min(x1, x2) - outlineWidth, Math.min(y1, y2) - outlineWidth,
+    public void drawSimpleLine(GuiPainter guiPainter, int x1, int y1, int x2, int y2, int color, int outlineWidth) {
+        guiPainter.drawRect(Math.min(x1, x2) - outlineWidth, Math.min(y1, y2) - outlineWidth,
                 Math.max(x1, x2) + 1 + outlineWidth, Math.max(y1, y2) + 1 + outlineWidth, color);
     }
 

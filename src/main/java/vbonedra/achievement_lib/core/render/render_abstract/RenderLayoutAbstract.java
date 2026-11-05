@@ -49,26 +49,26 @@ public abstract class RenderLayoutAbstract {
     }
 
     // drawing, returns the achievement under the mouse or null
-    public AchievementExtended draw(Minecraft mc, GuiPainter painter, RenderPane pane, AchievementStates states, List<AchievementExtended> achievements,
+    public AchievementExtended draw(Minecraft mc, GuiPainter guiPainter, RenderPane renderPane, AchievementStates achievementStates, List<AchievementExtended> achievements,
                                     int scrollX, int scrollY, int originX, int originY, int mouseX, int mouseY) {
         // lines are drawn without textures, drawing the icons turns them back on
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glDepthFunc(GL11.GL_LEQUAL);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-        drawConnections(painter, states, achievements, originX - scrollX, originY - scrollY);
+        drawConnections(guiPainter, achievementStates, achievements, originX - scrollX, originY - scrollY);
 
-        return drawIcons(mc, painter, pane, states, achievements, scrollX, scrollY, originX, originY, mouseX, mouseY);
+        return drawIcons(mc, guiPainter, renderPane, achievementStates, achievements, scrollX, scrollY, originX, originY, mouseX, mouseY);
     }
 
-    public void drawConnections(GuiPainter painter, AchievementStates states, List<AchievementExtended> achievements, int offsetX, int offsetY) {
+    public void drawConnections(GuiPainter guiPainter, AchievementStates achievementStates, List<AchievementExtended> achievements, int offsetX, int offsetY) {
         // pass 0: outlines
         // pass 1: locked and unlockable lines
         // pass 2: unlocked lines on top
         for (int pass = 0; pass < 3; pass++) {
             for (AchievementExtended achievementExtended : achievements) {
-                renderConnection.drawConnection(painter, states, pass, achievementExtended, achievementExtended.parent, false, offsetX, offsetY);
-                renderConnection.drawConnection(painter, states, pass, achievementExtended, achievementExtended.secondParent, true, offsetX, offsetY);
+                renderConnection.drawConnection(guiPainter, achievementStates, pass, achievementExtended, achievementExtended.parent, false, offsetX, offsetY);
+                renderConnection.drawConnection(guiPainter, achievementStates, pass, achievementExtended, achievementExtended.secondParent, true, offsetX, offsetY);
                 // TODO: 2nd parent connection must be rendered only when child with such parent is in focus aka under mouse
                 //  this is toggleable by bool variable; other options like dimming connection are fine to be implemented
             }
@@ -76,8 +76,8 @@ public abstract class RenderLayoutAbstract {
     }
 
     public AchievementExtended drawIcons(
-            Minecraft mc, GuiPainter painter, RenderPane pane,
-            AchievementStates states, List<AchievementExtended> achievements,
+            Minecraft mc, GuiPainter guiPainter, RenderPane renderPane,
+            AchievementStates achievementStates, List<AchievementExtended> achievements,
             int scrollX, int scrollY,
             int originX, int originY,
             int mouseX, int mouseY
@@ -93,10 +93,10 @@ public abstract class RenderLayoutAbstract {
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 
-        int clipLeft = pane.getBackgroundLeft();
-        int clipTop = pane.getBackgroundTop();
-        int clipRight = clipLeft + pane.getBackgroundWidth();
-        int clipBottom = clipTop + pane.getBackgroundHeight();
+        int clipLeft = renderPane.getBackgroundLeft();
+        int clipTop = renderPane.getBackgroundTop();
+        int clipRight = clipLeft + renderPane.getBackgroundWidth();
+        int clipBottom = clipTop + renderPane.getBackgroundHeight();
 
         boolean mouseInsideView = mouseX >= clipLeft && mouseX < clipRight
                 && mouseY >= clipTop && mouseY < clipBottom;
@@ -113,7 +113,7 @@ public abstract class RenderLayoutAbstract {
                 continue;
             }
 
-            drawIcon(mc, painter, states, renderItem, extended.achievement, screenX, screenY);
+            drawIcon(mc, guiPainter, achievementStates, renderItem, extended.achievement, screenX, screenY);
 
             boolean overIcon = mouseX >= screenX && mouseX <= screenX + ICON_SIZE
                     && mouseY >= screenY && mouseY <= screenY + ICON_SIZE;
@@ -126,9 +126,9 @@ public abstract class RenderLayoutAbstract {
     }
 
     // frame and item of one achievement, brighter the closer it is to being unlocked
-    public void drawIcon(Minecraft mc, GuiPainter painter, AchievementStates states, RenderItem renderItem, Achievement achievement, int screenX, int screenY) {
-        boolean unlocked = states.hasAchievementUnlocked(achievement);
-        boolean unlockable = states.canUnlockAchievement(achievement);
+    public void drawIcon(Minecraft mc, GuiPainter guiPainter, AchievementStates achievementStates, RenderItem renderItem, Achievement achievement, int screenX, int screenY) {
+        boolean unlocked = achievementStates.hasAchievementUnlocked(achievement);
+        boolean unlockable = achievementStates.canUnlockAchievement(achievement);
         boolean locked = !unlocked && !unlockable;
 
         float brightness;
@@ -148,7 +148,7 @@ public abstract class RenderLayoutAbstract {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         mc.getTextureManager().bindTexture(GuiTextures.ACHIEVEMENT);
         int frameU = achievement.getSpecial() ? FRAME_TEXTURE_U_SPECIAL : FRAME_TEXTURE_U_NORMAL;
-        painter.drawTexturedModalRect(screenX - FRAME_OVERHANG, screenY - FRAME_OVERHANG, frameU, FRAME_TEXTURE_V, FRAME_SIZE, FRAME_SIZE);
+        guiPainter.drawTexturedModalRect(screenX - FRAME_OVERHANG, screenY - FRAME_OVERHANG, frameU, FRAME_TEXTURE_V, FRAME_SIZE, FRAME_SIZE);
         GL11.glDisable(GL11.GL_BLEND);
 
         // locked items are dark silhouettes

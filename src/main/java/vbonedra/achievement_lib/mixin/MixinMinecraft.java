@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import vbonedra.achievement_lib.core.GuiAchievementLib;
 
+import static vbonedra.achievement_lib.manylib.AchievementLibConfigs.EnableVanillaGuiReplacement;
+
 /** Replaces the vanilla achievements screen with GuiAchievementLib, wherever the game opens it. */
 @Mixin(Minecraft.class)
 public class MixinMinecraft {
@@ -20,8 +22,10 @@ public class MixinMinecraft {
 
     @ModifyVariable(method = "displayGuiScreen", at = @At("HEAD"), argsOnly = true)
     private GuiScreen achievement_lib$replaceAchievementsGui(GuiScreen screen) {
-        if (screen instanceof GuiAchievements) {
-            return new GuiAchievementLib(this.statFileWriter);
+        if (EnableVanillaGuiReplacement.getBooleanValue()) {
+            if (screen instanceof GuiAchievements) {
+                return new GuiAchievementLib(this.statFileWriter);
+            }
         }
         return screen;
     }

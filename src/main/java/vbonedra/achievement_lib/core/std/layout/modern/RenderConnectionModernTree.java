@@ -12,7 +12,7 @@ public class RenderConnectionModernTree extends RenderConnectionLegacy {
     public int treeDirection = 0;
 
     // parent -> bend, across to the child's line, bend -> child
-    public void drawLine(GuiPainter painter, AchievementExtended child, AchievementExtended parent, int offsetX, int offsetY, int color, int outlineWidth) {
+    public void drawLine(GuiPainter guiPainter, AchievementExtended child, AchievementExtended parent, int offsetX, int offsetY, int color, int outlineWidth) {
 
         int startX = parent.x + ICON_CENTER_OFFSET + offsetX;
         int startY = parent.y + ICON_CENTER_OFFSET + offsetY;
@@ -21,13 +21,13 @@ public class RenderConnectionModernTree extends RenderConnectionLegacy {
 
         int bend = (TreeDirection.isHorizontal(treeDirection) ? startX : startY) + TreeDirection.getSign(treeDirection) * TREE_BEND_OFFSET;
         if (TreeDirection.isHorizontal(treeDirection)) {
-            drawSimpleLine(painter, startX, startY, bend, startY, color, outlineWidth);
-            drawSimpleLine(painter, bend, startY, bend, endY, color, outlineWidth);
-            drawSimpleLine(painter, bend, endY, endX, endY, color, outlineWidth);
+            drawSimpleLine(guiPainter, startX, startY, bend, startY, color, outlineWidth);
+            drawSimpleLine(guiPainter, bend, startY, bend, endY, color, outlineWidth);
+            drawSimpleLine(guiPainter, bend, endY, endX, endY, color, outlineWidth);
         } else {
-            drawSimpleLine(painter, startX, startY, startX, bend, color, outlineWidth);
-            drawSimpleLine(painter, startX, bend, endX, bend, color, outlineWidth);
-            drawSimpleLine(painter, endX, bend, endX, endY, color, outlineWidth);
+            drawSimpleLine(guiPainter, startX, startY, startX, bend, color, outlineWidth);
+            drawSimpleLine(guiPainter, startX, bend, endX, bend, color, outlineWidth);
+            drawSimpleLine(guiPainter, endX, bend, endX, endY, color, outlineWidth);
         }
 
     }

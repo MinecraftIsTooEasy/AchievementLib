@@ -3,7 +3,7 @@ package vbonedra.achievement_lib.core.render;
 import static vbonedra.achievement_lib.util.GuiConstants.*;
 
 /**
- * Size and position of the pane, its map area and its background area on the screen.
+ * Size and position of the renderPane, its map area and its background area on the screen.
  */
 public class RenderPane {
 
@@ -11,13 +11,15 @@ public class RenderPane {
     private int screenHeight;
     private int paneWidth = MIN_PANE_WIDTH;
     private int paneHeight = MIN_PANE_HEIGHT;
-    private int tabAreaHeight; // space above the pane that is kept free for the tabs
+    private int tabAreaHeight; // space above the renderPane that is kept free for the tabs
 
     public void setTabAreaHeight(int tabAreaHeight) {
         this.tabAreaHeight = tabAreaHeight;
     }
 
-    // pane size follows the screen size
+    /**
+     * Pane size follows the screen size.
+     */
     public void update(int screenWidth, int screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -25,7 +27,7 @@ public class RenderPane {
         paneHeight = Math.max(MIN_PANE_HEIGHT, screenHeight - PANE_MARGIN * 2 - tabAreaHeight);
     }
 
-    // pane
+    // renderPane
     public int getPaneWidth() {
         return paneWidth;
     }

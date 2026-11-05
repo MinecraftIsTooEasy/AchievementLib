@@ -56,6 +56,8 @@ dependencies {
     // To add strong dependencies, use "implementation" like above
     // To compile mod integrations(e.g. ModMenu), use "compileOnly"
     // To add mods for running client, use "localRuntime"
+    implementation "com.github.MinecraftIsTooEasy:ManyLib:2.3.0"
+    implementation "com.github.MinecraftIsTooEasy:ModMenu:10.1.1"
 }
 
 def fmlResolvedFile = configurations.fml.singleFile

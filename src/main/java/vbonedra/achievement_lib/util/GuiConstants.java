@@ -22,8 +22,8 @@ public final class GuiConstants {
     public static final float BACKGROUND_BRIGHTNESS_TOP = 0.6F;
     public static final float BACKGROUND_BRIGHTNESS_BOTTOM = 0.0F;
 
-    // dynamic pane constants
-    public static final int PANE_MARGIN = 20;       // minimum gap between pane and screen edge
+    // dynamic renderPane constants
+    public static final int PANE_MARGIN = 20;       // minimum gap between renderPane and screen edge
     public static final int MIN_PANE_WIDTH = 256;
     public static final int MIN_PANE_HEIGHT = 202;
     public static final int BORDER_TOP = 23;        // height of top border and top corners
@@ -34,17 +34,17 @@ public final class GuiConstants {
     public static final int BUTTON_WIDTH = 80;
     public static final int BUTTON_HEIGHT = 20;
     public static final int BUTTON_GAP = 24;        // space between buttons
-    public static final int BUTTON_GAP_BORDER = 48; // space between buttons and pane borders
+    public static final int BUTTON_GAP_BORDER = 48; // space between buttons and renderPane borders
 
     // tab constants
     public static final int TAB_WIDTH = 28;
-    public static final int TAB_HEIGHT = 28;    // height of an unselected tab, the tab sits on top of the pane
+    public static final int TAB_HEIGHT = 28;    // height of an unselected tab, the tab sits on top of the renderPane
     public static final int TAB_RISE = 4;       // the selected tab is this much taller than the others
-    public static final int TAB_OVERLAP = 4;    // the selected tab reaches this far into the pane's top border
+    public static final int TAB_OVERLAP = 4;    // the selected tab reaches this far into the renderPane's top border
     public static final int TAB_SELECTED_TEXTURE_HEIGHT = TAB_HEIGHT + TAB_RISE + TAB_OVERLAP;
-    public static final int TAB_AREA_HEIGHT = TAB_HEIGHT + TAB_RISE;    // space above the pane reserved for tabs
+    public static final int TAB_AREA_HEIGHT = TAB_HEIGHT + TAB_RISE;    // space above the renderPane reserved for tabs
     public static final int TAB_GAP = 2;            // space between tabs
-    public static final int TAB_STRIP_MARGIN = 8;   // space between the pane's side and the first tab or arrow
+    public static final int TAB_STRIP_MARGIN = 8;   // space between the renderPane's side and the first tab or arrow
     public static final int TAB_ICON_SIZE = 16;
     public static final int ARROW_WIDTH = 12;       // tab scroll arrow buttons
     public static final int ARROW_HEIGHT = TAB_HEIGHT;

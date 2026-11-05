@@ -30,7 +30,6 @@ public class RenderItemMixin {
             return false;
         }
 
-
         return itemStack.hasEffect();
     }
 }

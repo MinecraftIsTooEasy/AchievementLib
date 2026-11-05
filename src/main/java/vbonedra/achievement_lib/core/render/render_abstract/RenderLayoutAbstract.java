@@ -156,7 +156,6 @@ public abstract class RenderLayoutAbstract {
             GL11.glColor4f(0.1F, 0.1F, 0.1F, 1.0F);
             renderItem.renderWithColor = false;
         }
-
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_CULL_FACE);
         renderItem.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.getTextureManager(),

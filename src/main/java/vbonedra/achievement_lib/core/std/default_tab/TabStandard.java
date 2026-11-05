@@ -18,6 +18,6 @@ public class TabStandard extends TabAbstract {
     @Override
     public void addAchievement(AchievementExtended achievementExtended) {
         super.addAchievement(achievementExtended);
-        TabDefault.achievementsExcluded.add(achievementExtended.achievement);
+        TabDefault.excludeAchievement(achievementExtended.achievement);
     }
 }
